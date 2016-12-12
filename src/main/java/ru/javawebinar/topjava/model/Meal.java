@@ -11,10 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Meal {
 
-    private static final AtomicLong idCounter
-            = new AtomicLong(0);
-
-    private final long id = idCounter.getAndIncrement();
+    private final long id;
 
     private final LocalDateTime dateTime;
 
@@ -22,7 +19,8 @@ public class Meal {
 
     private final int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
+    public Meal(long id, LocalDateTime dateTime, String description, int calories) {
+        this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;

@@ -14,9 +14,9 @@
 </head>
 <body>
     <table width="%80">
-        <c:forEach var="mealWExceed" items="$list">
+        <c:forEach var="m" items="${list}">
             <tr>
-                <td>$mealWExceed.getId()</td>
+                <td>${m.id}</td>
             </tr>
         </c:forEach>
     </table>
