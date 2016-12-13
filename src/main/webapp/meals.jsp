@@ -8,7 +8,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>Meal list</title>
@@ -30,13 +29,13 @@
         <c:if test="${m.exceed == false}"><tr class="info"></c:if>
         <c:if test="${m.exceed == true}"><tr class="danger"></c:if>
             <td hidden>${m.id}</td>
-            <td>${m.dateTime}</td>
+            <td width="20%">${m.dateTimeString}</td>
             <td>${m.description}</td>
             <td>${m.calories}</td>
-            <td width="%5">
+            <td width="5%">
                 <a href="update?id=${m.id}"><span class="glyphicon glyphicon-pencil"></span></a>
             </td>
-            <td width="%5">
+            <td width="5%">
                 <a href="delete?id=${m.id}"><span class="glyphicon glyphicon-remove"></span></a>
             </td>
         </tr>

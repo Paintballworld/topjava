@@ -24,8 +24,11 @@
             <td>Calories</td>
         </tr>
         <tr>
+            <td hidden>
+                <input type="number" name="id" value="${mealItem.id}">
+            </td>
             <td>
-                <input type="datetime" name="dateTime" value="${mealItem.dateTime}">
+                <input type="datetime-local" name="dateTime" value="${mealItem.dateTime}">
             </td>
             <td>
                 <input type="text" name="description" value="${mealItem.description}">

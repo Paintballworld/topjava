@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -31,6 +32,8 @@ public class MealServlet extends HttpServlet {
                 LocalTime.MIN,
                 LocalTime.MAX,
                 2000);
+
+        Collections.sort(mealsWExceed);
 
         request.setAttribute("list", mealsWExceed);
 
