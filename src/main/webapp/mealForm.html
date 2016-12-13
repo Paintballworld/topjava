@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Add new meal</title>
+    <meta charset="utf-8">
 </head>
-<body>
-* Attention! Whenever you add meal into your database it is added s nbew,
-so if you want to update your partucular meal information, please use proper function.
 
-<form action="// TODO" action="POST">
-    <tr>
-        <td>Date</td>
-        <td>Description</td>
-        <td>Calories</td>
-    </tr>
-    <tr>
-        <td>
-            <input type="datetime-local" name="dateTime">
-        </td>
-        <td>
-            <input type="text" name="description">
-        </td>
-        <td>
-            <input type="number" name="calories">
-        </td>
-    </tr>
-    <input type="submit" name="submit">
+<form action="addnewmeal" method="POST">
+    <table class="table">
+        <tr>
+            <td>Date</td>
+            <td>Description</td>
+            <td>Calories</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="datetime" name="dateTime">
+            </td>
+            <td>
+                <input type="text" name="description" value="What a good breakfast!!+">
+            </td>
+            <td>
+                <input type="number" name="calories" value="1500">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" name="submit" value="Отправить данные на сервер">
 </form>
 </body>
 </html>

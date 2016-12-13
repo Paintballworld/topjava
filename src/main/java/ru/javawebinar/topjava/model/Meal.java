@@ -30,6 +30,16 @@ public class Meal {
         this.calories = calories;
     }
 
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                '}';
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
