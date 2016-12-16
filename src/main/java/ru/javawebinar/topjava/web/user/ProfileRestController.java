@@ -8,7 +8,7 @@ import ru.javawebinar.topjava.model.User;
  * GKislin
  * 06.03.2015.
  */
-@Controller
+
 public class ProfileRestController extends AbstractUserController {
 
     public User get() {

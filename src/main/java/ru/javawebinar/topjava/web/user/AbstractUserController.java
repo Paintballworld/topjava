@@ -12,6 +12,7 @@ import java.util.List;
  * User: gkislin
  */
 public abstract class AbstractUserController {
+
     protected final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Autowired
