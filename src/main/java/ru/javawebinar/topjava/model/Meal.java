@@ -8,23 +8,23 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
-public class Meal {
-    private Integer id;
+public class Meal extends NamedEntity{
+
+    private int userId;
 
     private final LocalDateTime dateTime;
-
-    private final String description;
 
     private final int calories;
 
     public Meal(LocalDateTime dateTime, String description, int calories) {
-        this(null, dateTime, description, calories);
+        this(null, null, dateTime, description, calories);
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(Integer userId, Integer id, LocalDateTime dateTime, String description, int calories) {
+        this.userId = userId;
         this.id = id;
         this.dateTime = dateTime;
-        this.description = description;
+        this.name = description;
         this.calories = calories;
     }
 
@@ -36,12 +36,16 @@ public class Meal {
         this.id = id;
     }
 
+    public void setUserID(int userID) { this.userId = userID; }
+
+    public int getUserId() { return userId; }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
 
     public String getDescription() {
-        return description;
+        return name;
     }
 
     public int getCalories() {
@@ -65,7 +69,7 @@ public class Meal {
         return "Meal{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
-                ", description='" + description + '\'' +
+                ", description='" + name + '\'' +
                 ", calories=" + calories +
                 '}';
     }
