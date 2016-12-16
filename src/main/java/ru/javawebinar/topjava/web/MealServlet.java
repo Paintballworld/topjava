@@ -53,13 +53,16 @@ public class  MealServlet extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
+
+            int authUserId = getUserId(request);
             LOG.info("getAll");
             request.setAttribute("meals",
-                    MealsUtil.getWithExceeded(repository.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                    MealsUtil.getWithExceeded(repository.getByUserId(authUserId), MealsUtil.DEFAULT_CALORIES_PER_DAY));
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
 
         } else if ("delete".equals(action)) {
             int id = getId(request);
+            int authUserId = getUserId(request);
             LOG.info("Delete {}", id);
             repository.delete(id);
             response.sendRedirect("meals");
@@ -76,5 +79,14 @@ public class  MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
+    }
+
+    private int getUserId(HttpServletRequest request)  {
+        int authUserId;
+        if (request.getParameter("userId") != null)
+            authUserId = Integer.valueOf(request.getParameter("userId"));
+        else
+            authUserId = 1;
+        return authUserId;
     }
 }

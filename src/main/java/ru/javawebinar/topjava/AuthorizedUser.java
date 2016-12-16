@@ -12,6 +12,8 @@ public class AuthorizedUser {
         return 1;
     }
 
+
+
     public static int getCaloriesPerDay() {
         return MealsUtil.DEFAULT_CALORIES_PER_DAY;
     }

@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.web.meal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.MealService;
@@ -18,10 +19,13 @@ public abstract class AbstractMealController {
     @Autowired
     private MealService service;
 
-    public List<Meal> getAll() {
-        LOG.info("getAll");
-        return service.getAll();
-    }
+    @Autowired
+    private User authorizedUser;
+
+//    public List<Meal> getAll() {
+//        LOG.info("getAll");
+//        return service.getAll();
+//    }
 
     public Meal get(int id) {
         LOG.info("get " + id);
@@ -30,6 +34,7 @@ public abstract class AbstractMealController {
 
     public Meal create(Meal meal) {
         meal.setId(null);
+        meal.setUserID(authorizedUser.getId());
         LOG.info("create " + meal);
         return service.save(meal);
     }
@@ -45,9 +50,9 @@ public abstract class AbstractMealController {
         service.update(meal);
     }
 
-    public List<Meal> getByUser(User user) {
-        LOG.info("getByUser" + user.getId());
-        return service.getByUser(user);
+    public List<Meal> getAll() {
+        LOG.info("getByUser" + authorizedUser.getId());
+        return service.getByUser(authorizedUser);
     }
 
 

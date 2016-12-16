@@ -20,7 +20,7 @@ public interface MealService {
 
     Meal get(int id) throws NotFoundException;
 
-    List<Meal> getAll();
+//    List<Meal> getAll();
 
     List<Meal> getByUser(User user);
 

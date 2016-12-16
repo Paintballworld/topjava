@@ -21,6 +21,11 @@
     <h2>Meal list</h2>
     <a href="meals?action=create">Add Meal</a>
     <hr>
+    <input type="checkbox" list="users" name="user">
+    <datalist id="users">
+        <option value="1">1-ый пользователь</option>
+        <option value="2">2-ой пользователь</option>
+    </datalist>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
