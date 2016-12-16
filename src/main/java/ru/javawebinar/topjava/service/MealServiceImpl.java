@@ -26,7 +26,8 @@ public class MealServiceImpl implements MealService {
     @Override
     public void delete(int userId, int id) throws NotFoundException {
         if (!repository.delete(userId, id)) {
-            throw new NotFoundException("Attempt to DELETE meal that is not belong to user#" + userId + " or doesn't exist");
+            throw new NotFoundException("Attempt to DELETE meal#"
+                    + id + " that is not belong to user#" + userId + " or doesn't exist");
         }
     }
 
@@ -34,7 +35,8 @@ public class MealServiceImpl implements MealService {
     public Meal get(int userId, int id) throws NotFoundException {
         Meal result = repository.get(userId, id);
         if (result == null) {
-            throw new NotFoundException("Attempt to GET meal that is not belong to user#" + userId + " or doesn't exist");
+            throw new NotFoundException("Attempt to GET meal#"
+                    + id + "  that is not belong to user#" + userId + " or doesn't exist");
         }
         return result;
     }
@@ -47,7 +49,8 @@ public class MealServiceImpl implements MealService {
     @Override
     public void update(int userId, Meal meal) throws NotFoundException{
         if (repository.get(userId, meal.getId()) == null)
-            throw new NotFoundException("Attempt to UPDATE meal that is not belong to user#" + userId + " or doesn't exist");
+            throw new NotFoundException("Attempt to UPDATE meal#"
+                    + meal.getId() + "  that is not belong to user#" + userId + " or doesn't exist");
         meal.setUserId(userId);
         repository.save(userId, meal);
     }

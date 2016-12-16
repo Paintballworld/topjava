@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.exception.KotinSikariException;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -64,8 +65,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        if (repository.get(userId) == null || repository.get(userId).isEmpty())
-            return Collections.emptyList();
+        if (repository.get(userId) == null || repository.get(userId).isEmpty()) {
+            throw new KotinSikariException("Empty list requery");
+        }
         return repository
                 .get(userId)
                 .values()

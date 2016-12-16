@@ -14,6 +14,7 @@ import java.util.List;
  * GKislin
  * 06.03.2015.
  */
+
 @Controller
 public class MealRestController {
 
@@ -22,33 +23,35 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    private int authorizedUserId = AuthorizedUser.id();
+    public void setService(MealService service) {
+        this.service = service;
+    }
 
     public List<Meal> getAll() {
         LOG.info("getAll");
-        return service.getAll(authorizedUserId);
+        return service.getAll(AuthorizedUser.id());
     }
 
     public Meal get(int id) {
         LOG.info("get " + id);
-        return service.get(authorizedUserId, id);
+        return service.get(AuthorizedUser.id(), id);
     }
 
     public Meal create(Meal meal) {
         meal.setId(null);
         LOG.info("create " + meal);
-        return service.save(authorizedUserId, meal);
+        return service.save(AuthorizedUser.id(), meal);
     }
 
     public void delete(int id) {
         LOG.info("delete " + id);
-        service.delete(authorizedUserId, id);
+        service.delete(AuthorizedUser.id(), id);
     }
 
     public void update(Meal meal, int id) {
         meal.setId(id);
         LOG.info("update " + meal);
-        service.update(authorizedUserId, meal);
+        service.update(AuthorizedUser.id(), meal);
     }
 
 }

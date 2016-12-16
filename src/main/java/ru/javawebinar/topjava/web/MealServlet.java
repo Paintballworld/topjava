@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
-import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
-import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -27,22 +24,20 @@ import java.util.Objects;
  * User: gkislin
  * Date: 19.08.2014
  */
-public class  MealServlet extends HttpServlet {
+public class MealServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
 
-//    private MealRepository repository;
     private MealRestController mealRestController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 //        repository = new InMemoryMealRepositoryImpl();
-        mealRestController = new MealRestController();
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             System.out.println("\n\n\n");
-            MealRestController mealRestController = appCtx.getBean(MealRestController.class);
+            mealRestController = appCtx.getBean(MealRestController.class);
             mealRestController.getAll().forEach(System.out::println);
             System.out.println("\n\n\n");
         }
@@ -62,7 +57,7 @@ public class  MealServlet extends HttpServlet {
         if (meal.isNew())
             mealRestController.create(meal);
         else {
-            int mealId = getUserIdOrDefaultUser(request);
+            int mealId = getId(request);
             mealRestController.update(meal, mealId);
         }
         response.sendRedirect("meals");
@@ -97,12 +92,5 @@ public class  MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
-    }
-
-    private int getUserIdOrDefaultUser(HttpServletRequest request) {
-        String userIdStr = request.getParameter("authUserId");
-        if (userIdStr == null)
-            return 0;
-        return Integer.valueOf(userIdStr);
     }
 }
