@@ -6,7 +6,6 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 
-import java.util.Collection;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -20,6 +19,14 @@ public class MealServiceImpl implements MealService {
 
     @Autowired
     private MealRepository repository;
+
+    public MealRepository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(MealRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Meal save(Meal meal) {
@@ -50,4 +57,6 @@ public class MealServiceImpl implements MealService {
     public void update(Meal meal) {
         repository.save(meal);
     }
+
+
 }
