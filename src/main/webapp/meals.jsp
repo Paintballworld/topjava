@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<h2><a href="index.html">Home</a></h2>
 <form action="meals" method="GET">
     <input list="users" name="newUserId" placeholder="${currentUser.name}">
     <input hidden type="text" name="action" value="changeUser">
@@ -19,10 +20,19 @@
             <option vaue="${user.id}">${user.email}</option>
         </c:forEach>
     </datalist>
-    <input type="submit" value="changeUser" title="Сменить пользователя">
+    <input type="submit" name="changeUser" value="Сменить пользователя">
+</form>
+<form action="meals" method="GET">
+    <input hidden type="text" name="action" value="filter">
+    <input type="date" name="startDate" value="${startDate}"> -
+    <input type="date" name="endDate" value="${endDate}">
+    <br/>
+    <input type="time" name="startTime" value="${startTime}"> -
+    <input type="time" name="endTime" value="${endTime}">
+    <input type="submit" name="filter" value="Применить фильтр">
 </form>
 <section>
-    <h2><a href="index.html">Home</a></h2>
+
     <h2>Meal list</h2>
     <a href="meals?action=create">Add Meal</a>
     <hr>

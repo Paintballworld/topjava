@@ -45,12 +45,11 @@ public class MealServlet extends HttpServlet {
 //        repository = new InMemoryMealRepositoryImpl();
 
         appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-        System.out.println("\n\n\n");
         mealRestController = appCtx.getBean(MealRestController.class);
-        mealRestController.getAll().forEach(System.out::println);
         adminRestController = appCtx.getBean(AdminRestController.class);
-        System.out.println("\n\n\n");
+        System.out.println("\n\n\n" +
+                "Initiation of ClassPathXmlApplicationContext completed" +
+                "\n\n\n");
 
     }
 
@@ -102,15 +101,31 @@ public class MealServlet extends HttpServlet {
             String endDateStr = request.getParameter("endDate");
             String startTimeStr = request.getParameter("startTime");
             String endTimeStr = request.getParameter("endTime");
-            LocalDate startDate = startDateStr != null ? LocalDate.parse(startDateStr) : null;
-            LocalDate endDate = endDateStr != null ? LocalDate.parse(endDateStr) : null;
-            LocalTime startTime = startTimeStr != null ? LocalTime.parse(startTimeStr) : null;
-            LocalTime endTime = endTimeStr != null ? LocalTime.parse(endTimeStr) : null;
+
+            LOG.info("Received startDate=" + startDateStr + ", endDate=" + endDateStr);
+            LocalDate startDate = null;
+            LocalDate endDate = null;
+            if (!startDateStr.isEmpty())
+                startDate = LocalDate.parse(startDateStr);
+            if (!endDateStr.isEmpty())
+                endDate = LocalDate.parse(endDateStr);
+
+            LOG.info("Received startTime=" + startTimeStr + ", endTime=" + endTimeStr);
+            LocalTime startTime = null;
+            LocalTime endTime = null;
+            if (!startTimeStr.isEmpty())
+                startTime = LocalTime.parse(startTimeStr);
+            if (!endTimeStr.isEmpty())
+                endTime = LocalTime.parse(endTimeStr);
 
             LOG.info("getFiltered between " + startDate + " " + startTime
                     + " - " + endDate + " " + endTime);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("endDate", endDate);
+            request.setAttribute("startTime", startTime);
+            request.setAttribute("endTime", endTime);
             request.setAttribute( "meals", mealRestController.getFilteredWithExceeded(startDate, endDate, startTime, endTime));
-            request.getRequestDispatcher("/meal.jsp").forward(request, response);
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);
 
         } else if ("delete".equals(action)) {
             int id = getId(request);
