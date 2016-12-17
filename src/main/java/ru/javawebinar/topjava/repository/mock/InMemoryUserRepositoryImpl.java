@@ -42,11 +42,11 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        LOG.info("save " + user);
         if (user.isNew()) {
-            user.setId(counter.incrementAndGet());
+            user.setId(counter.getAndIncrement());
         }
         repository.put(user.getId(), user);
+        LOG.info("save " + user);
         return user;
     }
 

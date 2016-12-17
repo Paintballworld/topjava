@@ -11,20 +11,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<form action="meals" method="GET">
+    <input list="users" name="newUserId" placeholder="${currentUser.name}">
+    <input hidden type="text" name="action" value="changeUser">
+    <datalist id="users">
+        <c:forEach items="${users}" var="user">
+            <option vaue="${user.id}">${user.email}</option>
+        </c:forEach>
+    </datalist>
+    <input type="submit" value="changeUser" title="Сменить пользователя">
+</form>
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>Meal list</h2>
     <a href="meals?action=create">Add Meal</a>
     <hr>
-    <form action="meals" method="GET">
-        <input list="users" name="currentUser" value="${authUser.name}">
-        <datalist id="users">
-            <c:forEach items="${allUsers}" var="user">
-                <option vaue="${user.id}">${user.name}</option>
-            </c:forEach>
-        </datalist>
-        <input type="submit" value="changeUser" title="Сменить пользователя">
-    </form>
     <table class="table">
         <thead>
         <tr>

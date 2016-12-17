@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
+import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -15,7 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Objects;
@@ -30,6 +35,8 @@ public class MealServlet extends HttpServlet {
 
     private MealRestController mealRestController;
 
+    private AdminRestController adminRestController;
+
     ConfigurableApplicationContext appCtx;
 
     @Override
@@ -42,6 +49,7 @@ public class MealServlet extends HttpServlet {
         System.out.println("\n\n\n");
         mealRestController = appCtx.getBean(MealRestController.class);
         mealRestController.getAll().forEach(System.out::println);
+        adminRestController = appCtx.getBean(AdminRestController.class);
         System.out.println("\n\n\n");
 
     }
@@ -78,9 +86,31 @@ public class MealServlet extends HttpServlet {
         if (action == null) {
             LOG.info("getAll");
 
-            request.setAttribute("meals",
-                    MealsUtil.getWithExceeded(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+            setBasicDataToRequest(request);
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
+
+        } else if("changeUser".equals(action)) {
+            String userEmail = request.getParameter("newUserId");
+            LOG.info("Switching user to " + userEmail);
+            User newUser = adminRestController.getByMail(userEmail);
+            AuthorizedUser.setId(newUser.getId());
+            setBasicDataToRequest(request);
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);
+
+        } else if ("filter".equals(action)) {
+            String startDateStr = request.getParameter("startDate");
+            String endDateStr = request.getParameter("endDate");
+            String startTimeStr = request.getParameter("startTime");
+            String endTimeStr = request.getParameter("endTime");
+            LocalDate startDate = startDateStr != null ? LocalDate.parse(startDateStr) : null;
+            LocalDate endDate = endDateStr != null ? LocalDate.parse(endDateStr) : null;
+            LocalTime startTime = startTimeStr != null ? LocalTime.parse(startTimeStr) : null;
+            LocalTime endTime = endTimeStr != null ? LocalTime.parse(endTimeStr) : null;
+
+            LOG.info("getFiltered between " + startDate + " " + startTime
+                    + " - " + endDate + " " + endTime);
+            request.setAttribute( "meals", mealRestController.getFilteredWithExceeded(startDate, endDate, startTime, endTime));
+            request.getRequestDispatcher("/meal.jsp").forward(request, response);
 
         } else if ("delete".equals(action)) {
             int id = getId(request);
@@ -100,5 +130,12 @@ public class MealServlet extends HttpServlet {
     private int getId(HttpServletRequest request) {
         String paramId = Objects.requireNonNull(request.getParameter("id"));
         return Integer.valueOf(paramId);
+    }
+
+    private void setBasicDataToRequest(HttpServletRequest request) {
+        User authorizedUser = adminRestController.get(AuthorizedUser.id());
+        request.setAttribute("currentUser", authorizedUser);
+        request.setAttribute("meals", mealRestController.getAllWithExceeded());
+        request.setAttribute("users", adminRestController.getAll());
     }
 }

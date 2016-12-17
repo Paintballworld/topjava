@@ -3,9 +3,11 @@ package ru.javawebinar.topjava.repository.mock;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.exception.KotinSikariException;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -72,6 +74,25 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 .get(userId)
                 .values()
                 .stream()
+                .sorted((o1, o2) -> o2.getDateTime().compareTo(o1.getDateTime()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param userId
+     * @param startDate
+     * @param endDate
+     * @return sorted list with reverse order of Meals for given useId whiich are between
+     * startDate and endDate (including both)
+     */
+    @Override
+    public List<Meal> getBetweenDates(int userId, LocalDate startDate, LocalDate endDate) {
+        return repository
+                .get(userId)
+                .values()
+                .stream()
+                .filter(o -> DateTimeUtil.isBetween(o.getDate(), startDate, endDate))
                 .sorted((o1, o2) -> o2.getDateTime().compareTo(o1.getDateTime()))
                 .collect(Collectors.toList());
     }
