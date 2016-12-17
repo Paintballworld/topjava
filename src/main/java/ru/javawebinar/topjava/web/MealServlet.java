@@ -30,17 +30,25 @@ public class MealServlet extends HttpServlet {
 
     private MealRestController mealRestController;
 
+    ConfigurableApplicationContext appCtx;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 //        repository = new InMemoryMealRepositoryImpl();
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-            System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-            System.out.println("\n\n\n");
-            mealRestController = appCtx.getBean(MealRestController.class);
-            mealRestController.getAll().forEach(System.out::println);
-            System.out.println("\n\n\n");
-        }
+
+        appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+        System.out.println("\n\n\n");
+        mealRestController = appCtx.getBean(MealRestController.class);
+        mealRestController.getAll().forEach(System.out::println);
+        System.out.println("\n\n\n");
+
+    }
+
+    @Override
+    public void destroy() {
+        appCtx.close();
     }
 
     @Override

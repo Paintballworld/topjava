@@ -28,12 +28,12 @@ public class MealRestController {
     }
 
     public List<Meal> getAll() {
-        LOG.info("getAll");
+        LOG.info("getAll for user" + AuthorizedUser.id());
         return service.getAll(AuthorizedUser.id());
     }
 
     public Meal get(int id) {
-        LOG.info("get " + id);
+        LOG.info("get " + id + " for user" + AuthorizedUser.id());
         return service.get(AuthorizedUser.id(), id);
     }
 
@@ -44,13 +44,13 @@ public class MealRestController {
     }
 
     public void delete(int id) {
-        LOG.info("delete " + id);
+        LOG.info("delete " + id + " for user" + AuthorizedUser.id());
         service.delete(AuthorizedUser.id(), id);
     }
 
     public void update(Meal meal, int id) {
         meal.setId(id);
-        LOG.info("update " + meal);
+        LOG.info("update " + meal + "  for user" + AuthorizedUser.id());
         service.update(AuthorizedUser.id(), meal);
     }
 

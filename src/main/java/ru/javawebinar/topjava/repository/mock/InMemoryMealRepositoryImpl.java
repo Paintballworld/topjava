@@ -66,7 +66,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meal> getAll(int userId) {
         if (repository.get(userId) == null || repository.get(userId).isEmpty()) {
-            throw new KotinSikariException("Empty list requery");
+            return Collections.emptyList();
         }
         return repository
                 .get(userId)

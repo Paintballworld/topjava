@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 /**
@@ -8,11 +10,11 @@ import ru.javawebinar.topjava.util.MealsUtil;
  */
 public class AuthorizedUser {
 
-    public void setId(int newId) {
+    private static int id = 0;
+
+    public static void setId(int newId) {
         id = newId;
     }
-
-    private static int id = 0;
 
     public static int id() {
         return id;
