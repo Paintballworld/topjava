@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
@@ -24,7 +23,7 @@ import static ru.javawebinar.topjava.UserTestData.USER;
  * 13.03.2015.
  */
 @ContextConfiguration({
-        "classpath:spring/spring-app.xml",
+        "classpath:spring/spring-app2.xml",
         "classpath:spring/spring-db.xml"
 })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,7 +32,8 @@ public class InMemoryAdminRestControllerSpringTest {
     @Autowired
     private AdminRestController controller;
 
-    private UserRepository repository = new InMemoryUserRepositoryImpl();
+    @Autowired
+    private UserRepository repository;
 
     @Before
     public void setUp() throws Exception {
