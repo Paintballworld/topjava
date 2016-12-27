@@ -54,9 +54,6 @@ public class JdbcMealRepositoryImpl implements MealRepository {
             Number newKey = insertMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
         } else {
-            // TODO
-            // Сделать проверку на то, принадлежит ли обновляемая (!isNew)
-            // еда пользователю, если нет то вернуть null
 
             rowsAffected = namedParameterJdbcTemplate.update(
                     "UPDATE meals SET description=:description, user_id=:user_id, " +
