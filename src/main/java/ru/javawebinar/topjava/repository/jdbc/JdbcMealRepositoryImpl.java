@@ -49,16 +49,20 @@ public class JdbcMealRepositoryImpl implements MealRepository {
                 .addValue("date_time", meal.getDateTime())
                 .addValue("user_id", userId)
                 .addValue("calories", meal.getCalories());
-
+        int rowsAffected = 1;
         if (meal.isNew()) {
             Number newKey = insertMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
         } else {
-            namedParameterJdbcTemplate.update(
+            // TODO
+            // Сделать проверку на то, принадлежит ли обновляемая (!isNew)
+            // еда пользователю, если нет то вернуть null
+
+            rowsAffected = namedParameterJdbcTemplate.update(
                     "UPDATE meals SET description=:description, user_id=:user_id, " +
-                            "date_time=:date_time, calories=:calories WHERE id=:id", map);
+                            "date_time=:date_time, calories=:calories WHERE id=:id AND user_id=:user_id", map);
         }
-        return meal;
+        return rowsAffected > 0 ? meal : null;
     }
 
     @Override
@@ -80,7 +84,7 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
 
-        return jdbcTemplate.query("SELECT * FROM meals WHERE user_id=? AND date_time BETWEEN '?'::DATE AND " +
-                "'?'::DATE ORDER BY date_time DESC", ROW_MAPPER, userId, startDate, endDate );
+        return jdbcTemplate.query("SELECT * FROM meals WHERE user_id=? AND date_time BETWEEN ?::DATE AND " +
+                "?::DATE ORDER BY date_time DESC", ROW_MAPPER, userId, startDate.toLocalDate(), endDate.toLocalDate() );
     }
 }
