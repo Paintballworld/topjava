@@ -15,10 +15,10 @@ import java.time.LocalTime;
  * 11.01.2015.
  */
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query="DELETE FROM Meal m WHERE m.id=:id"),
-        @NamedQuery(name = Meal.BY_ID, query="SELECT m FROM Meal m WHERE m.id=:id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id"),
-        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id AND m.dateTime BETWEEN ?1 AND ?2 ORDER BY m.dateTime DESC")}
+        @NamedQuery(name = Meal.DELETE, query="DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.BY_ID, query="SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = Meal.GET_BETWEEN, query = "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN ?1 AND ?2 ORDER BY m.dateTime DESC")}
 )
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
