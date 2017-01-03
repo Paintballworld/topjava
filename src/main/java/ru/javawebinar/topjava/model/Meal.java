@@ -43,7 +43,7 @@ public class Meal extends BaseEntity {
     private int calories;
 
 
-    @CollectionTable(name = "users", joinColumns = @JoinColumn(name = "id"))
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
