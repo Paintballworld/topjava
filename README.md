@@ -1,5 +1,11 @@
+
+
 Java Enterprise Online Project 
 ===============================
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7677d893d82f4857b0d131580a15620c)](https://www.codacy.com/app/Paintballworld/topjava)
+[![Build Status](https://travis-ci.org/JavaWebinar/topjava09.svg?branch=master)](https://travis-ci.org/Paintballworld/topjava)
+[![Dependency Status](https://dependencyci.com/github/JavaWebinar/topjava09/badge)](https://dependencyci.com/github/Paintballworld/topjava)
+
 Наиболее востребованные технологии /инструменты / фреймворки Java Enterprise:
 Maven/ Spring/ Security/ JPA(Hibernate)/ REST(Jackson)/ Bootstrap(CSS)/ jQuery + plugins.
 
@@ -14,7 +20,6 @@ Maven/ Spring/ Security/ JPA(Hibernate)/ REST(Jackson)/ Bootstrap(CSS)/ jQuery +
 ### <a href="http://topjava.herokuapp.com/" target=_blank>Демо разрабатываемого приложения</a>
 ### <a href="https://github.com/JavaOPs/topjava/wiki">Требования к участникам, Wiki</a>
 ### <a href="cv.md">Составление резюме, подготовка к интервью, поиск работы</a>
-
 Вводное занятие
 ===============
 ## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) <a href="https://drive.google.com/file/d/0B9Ye2auQ_NsFSUNrdVc0bDZuX2s">Системы управления версиями. Git.
