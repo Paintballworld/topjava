@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,7 +31,7 @@ public class Meal extends BaseEntity {
     public static final String GET_BETWEEN = "Meal.GetBetween";
 
     @Column(name = "date_time", nullable = false, unique = true)
-    @NotEmpty
+    @NotNull
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
@@ -41,7 +42,6 @@ public class Meal extends BaseEntity {
     @Column(name = "calories", columnDefinition = "int")
     @Digits(fraction = 0, integer = 4)
     private int calories;
-
 
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
