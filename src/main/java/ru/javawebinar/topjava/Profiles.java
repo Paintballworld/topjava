@@ -13,5 +13,5 @@ public class Profiles {
             DATA_JPA = "datajpa";
 
     public static final String ACTIVE_DB = POSTGRES;
-    public static final String ACTIVE_JPA = JPA;
+    public static final String ACTIVE_JPA = DATA_JPA;
 }
