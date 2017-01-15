@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WhoAmIHandlerBeanPostProcessor implements BeanPostProcessor {
 
-    private static final Logger LOG = LoggerFactory.getLogger("Пылесос");
+    private static final Logger LOG = LoggerFactory.getLogger("WhoAmI?");
 
     private Map<String, Class> classes = new ConcurrentHashMap<>();
 
@@ -38,7 +38,7 @@ public class WhoAmIHandlerBeanPostProcessor implements BeanPostProcessor {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                     if (Profiles.SHOW_JPA) {
-                        LOG.info("Now using WhoAmI PostProcessor for {}", beanName);
+                        LOG.info("Now using WhoAmI PostProcessor for {}, method {}", beanName, method.getName());
                     }
                     return method.invoke(bean, args);
                 }
