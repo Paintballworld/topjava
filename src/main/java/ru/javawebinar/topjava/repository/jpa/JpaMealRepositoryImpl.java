@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.WhoAmI;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
+@WhoAmI
 public class JpaMealRepositoryImpl implements MealRepository {
 
     @PersistenceContext
