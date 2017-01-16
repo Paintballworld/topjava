@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import ru.javawebinar.topjava.repository.jdbc.LocalDateAttributeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

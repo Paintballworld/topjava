@@ -38,7 +38,7 @@ public class WhoAmIHandlerBeanPostProcessor implements BeanPostProcessor {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                     if (Profiles.SHOW_JPA) {
-                        LOG.info("Now using WhoAmI PostProcessor for {}, method {}", beanName, method.getName());
+                        LOG.info("WhoAmI:{}", beanName);
                     }
                     return method.invoke(bean, args);
                 }
