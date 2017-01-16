@@ -4,12 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.to.UserWMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -23,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private MealRepository mealRepository;
 
     @CacheEvict(value = "users", allEntries = true)
     @Override
@@ -64,5 +73,14 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
+    }
+
+    @Transactional(readOnly = true)
+    @Cacheable("users")
+    @Override
+    public UserWMeal getUserWMeal(int userId) {
+        User user = repository.getUserWRoles(userId);
+        Collection<Meal> meals = mealRepository.getAll(userId);
+        return new UserWMeal(user, meals);
     }
 }

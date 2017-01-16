@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.service;
 
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.UserWMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
@@ -25,4 +27,8 @@ public interface UserService {
     void update(User user);
     
     void evictCache();
+
+
+    UserWMeal getUserWMeal(int userId);
+
 }

@@ -4,8 +4,14 @@ import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.to.UserWMeal;
 
-import static ru.javawebinar.topjava.MealTestData.MEAL1_ID;
+import java.util.Arrays;
+
+import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.UserTestData.ADMIN;
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.UserTestData.USER_MODEL_MATCHER;
 
 
 /**
@@ -16,7 +22,16 @@ public class DataJPAServiceTest extends AllServicesTest {
 
     @Test
     public void testGetMealWUSer() {
-        Meal mealWUser = mealService.getMealWithUser(MEAL1_ID);
-        LOG.info("Got meal by id {}, user is {}", MEAL1_ID, mealWUser.getUser());
+        Meal mealWUser = mealService.getMealWithUser(ADMIN_MEAL1.getId());
+        Meal newMeal = ADMIN_MEAL1;
+        newMeal.setUser(ADMIN);
+        MATCHER.assertEquals(mealWUser, newMeal);
+    }
+
+    @Test
+    public void testGetUserWMeal() {
+        UserWMeal userWMeal = userService.getUserWMeal(ADMIN_ID);
+        USER_MODEL_MATCHER.assertEquals(ADMIN, userWMeal.extractUser());
+        MATCHER.assertCollectionEquals(Arrays.asList(ADMIN_MEAL2, ADMIN_MEAL1), userWMeal.getMeals());
     }
 }

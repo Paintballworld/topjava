@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.to.UserWMeal;
 import ru.javawebinar.topjava.util.WhoAmI;
 
 import java.util.List;
@@ -46,4 +47,10 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
     public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
     }
+
+    @Override
+    public User getUserWRoles(int id) {
+        return crudRepository.getUserWRoles(id);
+    }
+
 }
