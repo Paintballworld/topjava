@@ -14,7 +14,9 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.WhoAmI;
 
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 /**
@@ -49,7 +51,7 @@ public class JdbcMealRepositoryImpl implements MealRepository {
                 .addValue("id", meal.getId())
                 .addValue("description", meal.getDescription())
                 .addValue("calories", meal.getCalories())
-                .addValue("date_time", meal.getDateTime())
+                .addValue("date_time",  Date.from(meal.getDateTime().atZone(ZoneId.systemDefault()).toInstant()))
                 .addValue("user_id", userId);
 
         if (meal.isNew()) {
@@ -89,6 +91,8 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return jdbcTemplate.query(
                 "SELECT * FROM meals WHERE user_id=?  AND date_time BETWEEN  ? AND ? ORDER BY date_time DESC",
-                ROW_MAPPER, userId, startDate, endDate);
+                ROW_MAPPER, userId,
+                Date.from(startDate.atZone(ZoneId.systemDefault()).toInstant()),
+                Date.from(endDate.atZone(ZoneId.systemDefault()).toInstant()));
     }
 }

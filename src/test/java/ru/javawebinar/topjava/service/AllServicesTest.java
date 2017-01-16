@@ -21,6 +21,8 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
@@ -89,7 +91,7 @@ public abstract class AllServicesTest {
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, USER), userService.getAll());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test(expected = UndeclaredThrowableException.class)
     public void testUserDuplicateMailSave() throws Exception {
         userService.save(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
     }
