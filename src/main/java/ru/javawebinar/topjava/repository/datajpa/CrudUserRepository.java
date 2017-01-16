@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.UserWMeal;
 
 import java.util.List;
 
@@ -33,5 +34,4 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
     List<User> findAll(Sort sort);
 
     User getByEmail(String email);
-
 }

@@ -63,6 +63,11 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Meal getMealWUser(int melId) {
+        throw new UnsupportedOperationException("Class JdbcMealRepositoryImpl cannot provide this type of functional.");
+    }
+
     private Stream<Meal> getAllAsStream(int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
         return meals == null ?

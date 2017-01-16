@@ -46,7 +46,7 @@ import static ru.javawebinar.topjava.UserTestData.*;
 
 public abstract class AllServicesTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AllServicesTest.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(AllServicesTest.class);
     private static StringBuilder results = new StringBuilder();
 
     @Rule
@@ -73,10 +73,10 @@ public abstract class AllServicesTest {
     }
 
     @Autowired
-    private MealService mealService;
+    protected MealService mealService;
 
     @Autowired
-    private UserService userService;
+    protected UserService userService;
 
     @Before
     public void setUserService() throws Exception {

@@ -69,4 +69,10 @@ public class JpaMealRepositoryImpl implements MealRepository {
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate).getResultList();
     }
+
+    @Override
+    public Meal getMealWUser(int melId) {
+        throw new UnsupportedOperationException("Class JdbcMealRepositoryImpl cannot provide this type of functional.");
+    }
+
 }

@@ -12,8 +12,8 @@ public class Profiles {
             JPA = "jpa",
             DATA_JPA = "datajpa";
 
-    public static final String ACTIVE_DB = HSQLDB;
+    public static final String ACTIVE_DB = POSTGRES;
     public static final String ACTIVE_JPA = DATA_JPA;
 
-    public static final boolean SHOW_JPA = true;
+    public static final boolean SHOW_JPA = false;
 }
