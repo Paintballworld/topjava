@@ -6,14 +6,15 @@ package ru.javawebinar.topjava;
  */
 public class Profiles {
     public static final String
-            POSTGRES = "postgres",
+            POSTGRES = "postgres_local",
+            POSTGRES_REMOTE = "postgres_remote",
             HSQLDB = "hsqldb",
             JDBC = "jdbc",
             JPA = "jpa",
             DATA_JPA = "datajpa";
 
-    public static final String ACTIVE_DB = POSTGRES;
-    public static final String ACTIVE_JPA = DATA_JPA;
+    public static final String ACTIVE_DB = POSTGRES_REMOTE;
+    public static final String ACTIVE_REPO = DATA_JPA;
 
-    public static final boolean SHOW_JPA = false;
+    public static final boolean SHOW_JPA = true;
 }

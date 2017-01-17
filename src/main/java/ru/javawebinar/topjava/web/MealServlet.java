@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.StandardEnvironment;
 import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.DateTimeUtil;
@@ -38,7 +36,7 @@ public class  MealServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false, null);
-        springContext.getEnvironment().setActiveProfiles(new String[]{Profiles.DATA_JPA, Profiles.ACTIVE_DB});
+        springContext.getEnvironment().setActiveProfiles(new String[]{Profiles.ACTIVE_REPO, Profiles.ACTIVE_DB});
         springContext.refresh();
         mealController = springContext.getBean(MealRestController.class);
     }
