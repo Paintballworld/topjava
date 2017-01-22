@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.JpaUtil;
+import ru.javawebinar.topjava.repository.JpaUtilImpl;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
@@ -22,12 +23,12 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     protected UserService service;
 
     @Autowired
-    protected JpaUtil jpaUtil;
+    protected JpaUtil jpaUtilImpl;
 
     @Before
     public void setUp() throws Exception {
         service.evictCache();
-        jpaUtil.clear2ndLevelHibernateCache();
+        jpaUtilImpl.clear2ndLevelHibernateCache();
     }
 
     @Test
