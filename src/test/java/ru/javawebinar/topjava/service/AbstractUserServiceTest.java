@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.JpaUtil;
@@ -12,9 +13,8 @@ import ru.javawebinar.topjava.repository.JpaUtilImpl;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.javawebinar.topjava.UserTestData.*;
 
@@ -37,6 +37,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         User newUser = new User(null, "New", "new@gmail.com", "newPass", 1555, false, Collections.singleton(Role.ROLE_USER));
         User created = service.save(newUser);
         newUser.setId(created.getId());
+        newUser.setRoles(Collections.singleton(Role.ROLE_USER));
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, newUser, USER), service.getAll());
     }
 
@@ -86,6 +87,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         updated.setCaloriesPerDay(330);
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(USER_ID));
+    }
+
+    @Test
+    public void testUserWRoles() throws Exception {
+        User admin = service.get(ADMIN_ID);
+        List<Role> adminRoles = admin.getRoles().stream().sorted().collect(Collectors.toList());
+        new ModelMatcher<Role>().assertCollectionEquals(adminRoles, Arrays.asList(Role.ROLE_USER, Role.ROLE_ADMIN));
     }
 
 

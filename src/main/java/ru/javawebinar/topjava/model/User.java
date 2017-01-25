@@ -89,6 +89,10 @@ public class User extends NamedEntity {
         this.roles = roles;
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public String getEmail() {
         return email;
     }
