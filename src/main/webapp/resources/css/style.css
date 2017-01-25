@@ -20,7 +20,8 @@ dd {
 }
 
 .exceeded {
-    color: red;
+    color: #6f0000;
+
 }
 
 header, footer {
