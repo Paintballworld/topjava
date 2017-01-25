@@ -35,17 +35,7 @@ public class MealController {
 
     @RequestMapping(value = "/meals", method = RequestMethod.POST)
     public String getAction(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if ("filter".equals(action)) {
-            LocalDate startDate = DateTimeUtil.parseLocalDate(request.getParameter("startDate"));
-            LocalDate endDate = DateTimeUtil.parseLocalDate(request.getParameter("endDate"));
-            LocalTime startTime = DateTimeUtil.parseLocalTime(request.getParameter("startTime"));
-            LocalTime endTime = DateTimeUtil.parseLocalTime(request.getParameter("endTime"));
-            Collection<Meal> meals = service.getBetweenDates(startDate, endDate, AuthorizedUser.id());
-            request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(meals, startTime, endTime, AuthorizedUser.getCaloriesPerDay()));
-            return "meals";
-        }
+
         final Meal meal = new Meal(
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
@@ -54,10 +44,31 @@ public class MealController {
             LOG.info("Create {}", meal);
             service.save(meal, AuthorizedUser.id());
         } else {
+            int id = getId(request);
+            meal.setId(id);
             LOG.info("Update {}", meal);
             service.save(meal, AuthorizedUser.id());
         }
-        return "redirect:meals";
+        return "redirect:/meals";
+    }
+
+    @RequestMapping(value="/meals/filter")
+    public String filter(HttpServletRequest request){
+        LocalDate startDate = DateTimeUtil.parseLocalDate(request.getParameter("startDate"));
+        LocalDate endDate = DateTimeUtil.parseLocalDate(request.getParameter("endDate"));
+        LocalTime startTime = DateTimeUtil.parseLocalTime(request.getParameter("startTime"));
+        LocalTime endTime = DateTimeUtil.parseLocalTime(request.getParameter("endTime"));
+        startDate = startDate != null ? startDate : LocalDate.MIN;
+        endDate = endDate != null ? endDate : LocalDate.MAX;
+        startTime = startTime != null ? startTime : LocalTime.MIN;
+        endTime = endTime != null ? endTime : LocalTime.MAX;
+        Collection<Meal> meals = service.getBetweenDates(startDate, endDate, AuthorizedUser.id());
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
+        request.setAttribute("startTime", startTime);
+        request.setAttribute("endTime", endTime);
+        request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(meals, startTime, endTime, AuthorizedUser.getCaloriesPerDay()));
+        return "meals";
     }
 
     @RequestMapping(value = "/meals/delete", method = RequestMethod.GET)
@@ -65,12 +76,12 @@ public class MealController {
         int id = getId(request);
         LOG.info("Delete {}", id);
         service.delete(id, AuthorizedUser.id());
-        return "redirect:meals";
+        return "redirect:/meals";
     }
 
     @RequestMapping(value = "/meals/create", method = RequestMethod.GET)
     public String create(Model model) {
-        Meal meal = new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000);
+        Meal meal = new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 250);
         model.addAttribute("meal", meal);
         return "meal";
     }
@@ -78,7 +89,9 @@ public class MealController {
     @RequestMapping(value = "/meals/update", method = RequestMethod.GET)
     public String update(HttpServletRequest request) {
         int id = getId(request);
+        LOG.info("Update meal w id:{} requested", id);
         Meal meal = service.get(id, AuthorizedUser.id());
+        LOG.info("Selected Meal:{}", meal);
         request.setAttribute("meal", meal);
         return "meal";
     }
