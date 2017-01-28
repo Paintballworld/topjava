@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava;
 
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.Meal;
 
@@ -8,6 +9,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 
 /**
@@ -39,4 +44,48 @@ public class MealTestData {
     public static Meal getUpdated() {
         return new Meal(MEAL1_ID, MEAL1.getDateTime(), "Обновленный завтрак", 200);
     }
+
+    public static ResultMatcher MEAL1_RESULT_MATCHER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL1.getId())),
+                    hasProperty("description", is(MEAL1.getDescription())),
+                    hasProperty("calories", is(MEAL1.getCalories())),
+                    hasProperty("dateTime", is(MEAL1.getDateTime()))
+            )));
+    public static ResultMatcher MEAL2_RESULT_MATHCER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL2.getId())),
+                    hasProperty("description", is(MEAL2.getDescription())),
+                    hasProperty("calories", is(MEAL2.getCalories())),
+                    hasProperty("dateTime", is(MEAL2.getDateTime()))
+            )));
+    public static ResultMatcher MEAL3_RESULT_MATHCER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL3.getId())),
+                    hasProperty("description", is(MEAL3.getDescription())),
+                    hasProperty("calories", is(MEAL3.getCalories())),
+                    hasProperty("dateTime", is(MEAL3.getDateTime()))
+            )));
+    public static ResultMatcher MEAL4_RESULT_MATHCER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL4.getId())),
+                    hasProperty("description", is(MEAL4.getDescription())),
+                    hasProperty("calories", is(MEAL4.getCalories())),
+                    hasProperty("dateTime", is(MEAL4.getDateTime()))
+            )));
+    public static ResultMatcher MEAL5_RESULT_MATHCER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL5.getId())),
+                    hasProperty("description", is(MEAL5.getDescription())),
+                    hasProperty("calories", is(MEAL5.getCalories())),
+                    hasProperty("dateTime", is(MEAL5.getDateTime()))
+            )));
+    public static ResultMatcher MEAL6_RESULT_MATHCER = model().attribute("mealWithExceedList", hasItem(
+            allOf(
+                    hasProperty("id", is(MEAL6.getId())),
+                    hasProperty("description", is(MEAL6.getDescription())),
+                    hasProperty("calories", is(MEAL6.getCalories())),
+                    hasProperty("dateTime", is(MEAL6.getDateTime()))
+            )));
+
 }

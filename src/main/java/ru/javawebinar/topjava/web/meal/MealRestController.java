@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.web.meal;
 
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import ru.javawebinar.topjava.web.user.ProfileRestController;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -31,13 +34,15 @@ public class MealRestController extends AbstractMealController {
         return super.getAll();
     }
 
-    @Override
     @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MealWithExceed> getBetween(@RequestParam("startDate") LocalDate startDate,
-                                           @RequestParam("startTime") LocalTime startTime,
-                                           @RequestParam("endDate") LocalDate endDate,
-                                           @RequestParam("endTime") LocalTime endTime) {
-        return super.getBetween(startDate, startTime, endDate, endTime);
+    /* TODO refactor to receive LocalDateTime parameter instead of LocalDate and LocalTime.
+    в параметрах getBetween принимать LocalDateTime (конвертировать через Spring, @DATETIMEFORMAT
+    WITH JAVA 8 DATE-TIME API), а передавать в тестах в формате ISO_LOCAL_DATE_TIME
+    (например '2011-12-03T10:15:30'). */
+    public List<MealWithExceed> getBetween(@DateTimeFormat(iso = ISO.DATE_TIME) @RequestParam("startDateTime") LocalDateTime startDateTime,
+                                           @DateTimeFormat(iso = ISO.DATE_TIME) @RequestParam("endDateTime") LocalDateTime endDateTime) {
+        return super.getBetween(startDateTime.toLocalDate(), startDateTime.toLocalTime(),
+                endDateTime.toLocalDate(), endDateTime.toLocalTime());
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
