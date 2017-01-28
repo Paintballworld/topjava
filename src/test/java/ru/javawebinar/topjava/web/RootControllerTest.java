@@ -40,11 +40,11 @@ public class RootControllerTest extends AbstractControllerTest {
                 .andExpect(view().name("meals"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/meals.jsp"))
                 .andExpect(model().attribute("meals", hasSize(6)))
-                .andExpect(model().attribute("meals", hasItem(
-                        allOf(
-                                hasProperty("id", is(MEAL1.getId())),
-                                hasProperty("name", is(MEAL1.getDescription()))
-                        )
-                )));
+                .andExpect(MEAL1_RESULT_MATCHER)
+                .andExpect(MEAL2_RESULT_MATCHER)
+                .andExpect(MEAL3_RESULT_MATCHER)
+                .andExpect(MEAL4_RESULT_MATCHER)
+                .andExpect(MEAL5_RESULT_MATCHER)
+                .andExpect(MEAL6_RESULT_MATCHER);
     }
 }
