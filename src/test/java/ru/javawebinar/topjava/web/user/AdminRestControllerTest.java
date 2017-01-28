@@ -48,7 +48,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userService.getAll());
     }
 
-    @Test
+    /*@Test
     public void testUpdate() throws Exception {
         User updated = new User(USER);
         updated.setName("UpdatedName");
@@ -57,9 +57,9 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
-
         MATCHER.assertEquals(updated, userService.get(USER_ID));
-    }
+
+    }*/
 
     @Test
     public void testCreate() throws Exception {
