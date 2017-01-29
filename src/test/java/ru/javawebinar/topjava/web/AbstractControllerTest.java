@@ -1,7 +1,13 @@
 package ru.javawebinar.topjava.web;
 
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,6 +38,8 @@ import javax.annotation.PostConstruct;
 @Transactional
 @ActiveProfiles(resolver = AllActiveProfileResolver.class)
 abstract public class AbstractControllerTest {
+
+    protected final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
 
@@ -64,4 +72,12 @@ abstract public class AbstractControllerTest {
         userService.evictCache();
         jpaUtil.clear2ndLevelHibernateCache();
     }
+
+    @Rule
+    public TestWatcher testWatcher = new TestWatcher() {
+        @Override
+        protected void starting(Description description) {
+            LOG.warn("\n\n -------------- Now executing {} method ---------------\n\n", description);
+        }
+    };
 }

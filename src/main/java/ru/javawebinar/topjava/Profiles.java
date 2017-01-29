@@ -8,11 +8,16 @@ public class Profiles {
             HSQLDB = "hsqldb",
             JDBC = "jdbc",
             JPA = "jpa",
-            DATAJPA = "datajpa";
+            DATAJPA = "datajpa",
+            TOMCAT = "tomcat";
 
     public static final String DB_IMPLEMENTATION = DATAJPA;
+    private static final String DEFAULT_PROFILE = TOMCAT;
+
+    private static final boolean forceDbProfileOverride = false;
 
     public static String getActiveDbProfile() {
+        if (forceDbProfileOverride) return DEFAULT_PROFILE;
         try {
             Class.forName("org.postgresql.Driver", true, ClassUtils.getDefaultClassLoader());
             return Profiles.POSTGRES;
