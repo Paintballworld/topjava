@@ -13,6 +13,7 @@
         </encoder>
     </appender>
 
+
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>UTF-8</charset>

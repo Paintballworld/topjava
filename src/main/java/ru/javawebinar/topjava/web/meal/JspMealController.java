@@ -16,13 +16,14 @@ import java.util.Objects;
 
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
+import static ru.javawebinar.topjava.web.RootController.*;
 
 /**
  * gkislin
  * 16.10.2016
  */
 @Controller
-@RequestMapping(value = "/meals")
+@RequestMapping(value = ROOT_URL + "/meals")
 public class JspMealController extends AbstractMealController {
 
     @GetMapping("/delete")

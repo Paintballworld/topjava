@@ -9,6 +9,8 @@ import ru.javawebinar.topjava.model.User;
 import java.net.URI;
 import java.util.List;
 
+import static ru.javawebinar.topjava.web.RootController.ROOT_URL;
+
 /**
  * GKislin
  * 06.03.2015.
@@ -16,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(AdminRestController.REST_URL)
 public class AdminRestController extends AbstractUserController {
-    static final String REST_URL = "/rest/admin/users";
+    static final String REST_URL = ROOT_URL + "/rest/admin/users";
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

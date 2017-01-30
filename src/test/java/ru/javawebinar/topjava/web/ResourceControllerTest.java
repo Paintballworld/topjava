@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
+import static ru.javawebinar.topjava.web.RootController.ROOT_URL;
+
 /**
  * Created by yerlan on 27/01/17.
  */
@@ -15,7 +17,7 @@ public class ResourceControllerTest extends AbstractControllerTest{
 
      @Test
     public void testUsers() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get(ROOT_URL + "/users"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("users"))

@@ -13,6 +13,8 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.javawebinar.topjava.web.RootController.ROOT_URL;
+
 /**
  * GKislin
  * 06.03.2015.
@@ -20,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(MealRestController.REST_URL)
 public class MealRestController extends AbstractMealController {
-    static final String REST_URL = "/rest/profile/meals";
+    static final String REST_URL = ROOT_URL + "/rest/profile/meals";
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

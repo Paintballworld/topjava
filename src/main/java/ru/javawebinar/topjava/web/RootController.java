@@ -18,31 +18,34 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class RootController {
+
+    public static final String ROOT_URL = "/";
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private MealService mealService;
 
-    @GetMapping("/")
+    @GetMapping(ROOT_URL)
     public String root() {
         return "index";
     }
 
-    @GetMapping("/users")
+    @GetMapping(ROOT_URL + "/users")
     public String users(Model model) {
         model.addAttribute("users", userService.getAll());
         return "users";
     }
 
-    @PostMapping("/users")
+    @PostMapping(ROOT_URL + "/users")
     public String setUser(HttpServletRequest request) {
         int userId = Integer.valueOf(request.getParameter("userId"));
         AuthorizedUser.setId(userId);
         return "redirect:meals";
     }
 
-    @GetMapping("/meals")
+    @GetMapping(ROOT_URL + "/meals")
     public String meals(Model model) {
         model.addAttribute("meals",
                 MealsUtil.getWithExceeded(mealService.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay()));
