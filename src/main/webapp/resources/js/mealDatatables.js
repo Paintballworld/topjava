@@ -28,9 +28,35 @@ $(function () {
         "order": [
             [
                 0,
-                "asc"
+                "desc"
             ]
         ]
     });
     makeEditable();
 });
+
+function filter() {
+    var form = $('#mealsFilter');
+    $.ajax({
+        type: "GET",
+        url: ajaxUrl + "filter" ,
+        data: form.serialize(),
+        success: function (data) {
+            datatableApi.clear();
+            $.each(data, function (key, item) {
+                datatableApi.row.add(item);
+            });
+            datatableApi.draw();
+            successNoty('Filtered');
+        }
+    });
+    return false;
+}
+
+function clearFilter() {
+    $('#startDate').val(null);
+    $('#startTime').val(null);
+    $('#endDate').val(null);
+    $('#endTime').val(null);
+    updateTable();
+}
