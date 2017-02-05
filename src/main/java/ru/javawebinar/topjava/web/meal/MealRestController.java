@@ -29,7 +29,7 @@ public class MealRestController extends AbstractMealController {
         super.delete(id);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<MealWithExceed> getAll() {
         return super.getAll();
     }
@@ -50,7 +50,7 @@ public class MealRestController extends AbstractMealController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @GetMapping(value = "/between")
+    @RequestMapping(value = "/between")
     public List<MealWithExceed> getBetween(
             @RequestParam(value = "startDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDateTime,
             @RequestParam(value = "endDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDateTime) {
