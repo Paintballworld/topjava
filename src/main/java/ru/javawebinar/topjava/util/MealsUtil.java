@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * 31.05.2015.
  */
 public class MealsUtil {
-`
+
     public static List<MealWithExceed> getWithExceeded(Collection<Meal> meals, int caloriesPerDay) {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
     }
