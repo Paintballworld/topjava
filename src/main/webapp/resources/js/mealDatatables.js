@@ -26,13 +26,7 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "dateTime",
-                "render": function (date, type, row) {
-                    if (type == 'display') {
-                        return '${fn:formatDateTime(' + date + ')';
-                    }
-                    return date;
-                }
+                "data": "dateTime"
             },
             {
                 "data": "description"
@@ -49,12 +43,6 @@ $(function () {
                 "orderable": false,
                 "defaultContent": "",
                 "render": renderDeleteBtn
-            },
-            {
-                "data": "exceeded",
-                "render": function (data, type, row)  {
-                    this.closest('tr').toggleClass(data ? 'exceeded' : 'normal');
-                }
             }
         ],
         "order": [
@@ -64,10 +52,11 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            if (!data.enabled) {
-                $(row).addClass("disabled");
+            if (data.exceed) {
+                $(row).addClass("exceeded");
             }
         },
         "initComplete": makeEditable
     });
+    makeEditable();
 });
