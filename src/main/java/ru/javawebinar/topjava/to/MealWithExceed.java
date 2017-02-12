@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.javawebinar.topjava.model.Meal;
 
 import java.time.LocalDateTime;
 

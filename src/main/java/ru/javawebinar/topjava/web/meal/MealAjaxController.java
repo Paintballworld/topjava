@@ -6,8 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.to.UserTo;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -28,9 +31,20 @@ public class MealAjaxController extends AbstractMealController {
         return super.getAll();
     }
 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Meal getById(@PathVariable("id") int id) {
+        return super.get(id);
+    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
+    }
+
+    @GetMapping(value = "/isAdmin", produces = MediaType.APPLICATION_JSON_VALUE)
+    public boolean isAdmin() {
+        AuthorizedUser authorizedUser = AuthorizedUser.safeGet();
+        return authorizedUser.getAuthorities().contains(Role.ROLE_ADMIN);
     }
 
     @PostMapping

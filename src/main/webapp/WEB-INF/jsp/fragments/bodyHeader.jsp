@@ -8,7 +8,7 @@
 
         <div class="collapse navbar-collapse">
             <form class="navbar-form navbar-right">
-                <a class="btn btn-info" href="users"><spring:message code="users.title"/></a>
+                <a class="btn btn-info need_auth" href="users"><spring:message code="users.title"/></a>
 
                 <a class="btn btn-primary" href="logout">
                     <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>

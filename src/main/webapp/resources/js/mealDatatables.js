@@ -52,9 +52,7 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            if (data.exceed) {
-                $(row).addClass("exceeded");
-            }
+            $(row).addClass(data.exceed ? "exceeded" : "normal");
         },
         "initComplete": makeEditable
     });
