@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="topjava" tagdir="/WEB-INF/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
@@ -47,32 +48,38 @@
                 <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
-                <form:form class="form-horizontal" id="detailsForm">
+                <form:form modelAttribute="userTo" class="form-horizontal" id="detailsForm">
                     <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="name" class="control-label col-xs-3"><spring:message code="users.name"/></label>
+                        <label for="name" class="control-label col-xs-3">
+                            <spring:message code="users.name" var="userName"/>
+                        </label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="users.name"/>">
+                            <topjava:inputField label='${userName}' name="name"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="email" class="control-label col-xs-3"><spring:message code="users.email"/></label>
+                        <label for="email" class="control-label col-xs-3">
+                            <spring:message code="users.email" var="userEmail"/>
+                        </label>
 
                         <div class="col-xs-9">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="<spring:message code="users.email"/>">
+                            <topjava:inputField label='${userEmail}' name="email"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="password" class="control-label col-xs-3"><spring:message code="users.password"/></label>
+                        <label for="password" class="control-label col-xs-3">
+                            <spring:message code="users.password" var="userPassword"/>
+                        </label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="users.password"/>">
+                            <topjava:inputField label='${userPassword}' name="password" inputType="password"/>
                         </div>
-                    </div>
+                        </div>
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">

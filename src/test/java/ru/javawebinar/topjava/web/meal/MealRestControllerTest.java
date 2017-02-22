@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -82,6 +83,16 @@ public class MealRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
 
         assertEquals(updated, service.get(MEAL1_ID, START_SEQ));
+    }
+
+    @Test
+    public void testInvalidData() throws Exception {
+        Meal toSave = new Meal(LocalDateTime.of(2017, 1, 1, 10, 0), "TestData", 15000 );
+        ResultActions action = mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(toSave))
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().is5xxServerError());
     }
 
     @Test

@@ -55,4 +55,10 @@ public class AdminAjaxController extends AbstractUserController {
     public void enabled(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
         super.enable(id, enabled);
     }
+
+    @Override
+    public void update(UserTo userTo) {
+        log.info("update " + userTo);
+        service.update(userTo);
+    }
 }

@@ -204,6 +204,14 @@
             <version>${jackson-json.version}</version>
         </dependency>
 
+        <!--&lt;!&ndash; Jackson JSON Mapper &ndash;&gt;
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.7</version>
+        </dependency>-->
+
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
